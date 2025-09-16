@@ -2,7 +2,6 @@
 
 Este é um sistema desenvolvido em **Java** para gerenciar uma imobiliária familiar. O sistema é operado via **terminal** e utiliza **JDBC** para persistência em banco de dados **MySQL**.
 
----
 
 ## Funcionalidades
 
@@ -14,24 +13,33 @@ Este é um sistema desenvolvido em **Java** para gerenciar uma imobiliária fami
 - Listar clientes com mais contratos
 - Listar contratos expirando nos próximos 30 dias
 
----
 
 ## Estrutura do Projeto
 
 imobiliaria/
+
 ├─ src/
+
 │ ├─ model/ # Classes do modelo (Imovel, Cliente, Contrato)
+
 │ ├─ dao/ # Acesso ao banco de dados (CRUD)
+
 │ ├─ service/ # Serviços de relatório
+
 │ └─ app/ # Classe principal Main.java
+
 ├─ sql/
+
 │ └─ script.sql # Script de criação e inserção de dados
+
 ├─ diagrams/
+
 │ ├─ DiagramaMER.pdf
+
 │ └─ DiagramaClasse.pdf
+
 └─ README.md
 
----
 
 ## Configuração do Banco de Dados
 
@@ -42,48 +50,64 @@ imobiliaria/
 mysql -u root -p < sql/script.sql
 ```
 
----
 
 ## Como Executar
 
-**Compile o projeto:**
+- **Compile o projeto:**
 
 javac -d bin src/model/*.java src/dao/*.java src/service/*.java src/app/*.java
 
 
-**Execute o sistema:**
+- **Execute o sistema:**
 
 java -cp bin app.Main
 
 
 O menu interativo será exibido no terminal e você poderá escolher as opções desejadas.
 
-**Exemplos de Uso**
+---
 
-Cadastrar um imóvel: Informe endereço, tipo e valor do aluguel.
+## Exemplos de Uso
 
-Cadastrar cliente: Informe nome, CPF e telefone.
+- Cadastrar um imóvel: Informe endereço, tipo e valor do aluguel.
 
-Cadastrar contrato: Informe ID do cliente, ID do imóvel, datas de início e fim, e valor.
+- Cadastrar cliente: Informe nome, CPF e telefone.
 
-Relatórios: Listam imóveis disponíveis, contratos ativos, clientes com mais contratos e contratos próximos do vencimento.
+- Cadastrar contrato: Informe ID do cliente, ID do imóvel, datas de início e fim, e valor.
 
-**Diagramas**
+- Relatórios: Listam imóveis disponíveis, contratos ativos, clientes com mais contratos e contratos próximos do vencimento.
 
-Diagrama de Classes: diagrams/DiagramaClasse.pdf
+---
+
+## Diagramas
+
+**Diagrama de Classes:** diagrams/DiagramaClasse.pdf
+
 Representa as classes Imovel, Cliente, Contrato e suas relações.
 
-Diagrama MER: diagrams/DiagramaMER.pdf
+**Relações:** 
+- Contrato possui referências a Cliente e Imovel.
+- Imovel e Cliente não possuem referência direta entre si, apenas via Contrato.
+
+**Diagrama MER:** diagrams/DiagramaMER.pdf
+
 Mostra as tabelas do banco de dados e suas chaves primárias/estrangeiras.
 
-**Observações**
+**Explicação:**
+- Cliente → Contrato: Um cliente pode ter vários contratos (1:N).
+- Imovel → Contrato: Um imóvel pode ter vários contratos ao longo do tempo, mas apenas um ativo por vez (1:N).
+- Chaves primárias: id em cada tabela.
+- Chaves estrangeiras: Contrato.idCliente → Cliente.id, Contrato.idImovel → Imovel.id.
 
-O sistema atual funciona via terminal.
+---
 
-Todos os dados são persistidos no banco MySQL.
+**Observações:**
 
-Ao cadastrar um contrato, o imóvel relacionado será marcado automaticamente como indisponível.
+- O sistema atual funciona via terminal.
+- Todos os dados são persistidos no banco MySQL.
+- Ao cadastrar um contrato, o imóvel relacionado será marcado automaticamente como indisponível.
 
-Autores
+---
 
+Autores:
 [Fernanda Lemes, Héryck Teixeira]
